@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext, createContext } from 'react';
 import * as React from 'react';
 import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
 import { SPHttpClient } from "@microsoft/sp-http";
@@ -14,10 +14,11 @@ import { getSP } from '../pnpjsConfig';
 import { IItemAddResult, Items } from '@pnp/sp/items';
 import useForm from './Form';
 import validate from './Validation';
-import { ISPListItem, IItemListProps, ITodoFormValues } from './Interface';
+import { ISPListItem, IItemListProps, ITodoContext } from './Interface';
 
 
 const ToDoListName: string = 'To do list'
+const TodoContext = createContext<ITodoContext>({ fetchData: null });
 
 const _itemStatus = (status: string): string => {
   switch (status) {
@@ -36,53 +37,6 @@ const _itemStatus = (status: string): string => {
     default:
       return styles.itemStatus;
   }
-};
-
-
-const _onRenderListItem = (
-  item: ISPListItem,
-  index: number
-): JSX.Element => {
-  const removeTodoItem = async function (item: ISPListItem): Promise<void> {
-    console.log(item)
-    const retVal = confirm("Task will be deleted. Do you want to continue?");
-    if (retVal === true) {
-      const sp = getSP()
-      const list = await sp.web.lists.getByTitle(ToDoListName).select('Title', 'Status');
-      await list.items.getById(parseInt(item.Id)).delete()
-    }
-  }
-
-  return (
-    <div key={index} data-is-focusable={true}>
-      <ul className={styles.list}>
-        <li className={styles.listItem}>
-          <span>{item.Title}</span>
-          <span style={{ display: 'inline-flex', alignItems: 'center' }}>
-            <span
-              className={`${styles.itemStatus} ${_itemStatus(
-                item.Status
-              )}`}
-            >
-              {item.Status}
-              <Icon
-                className={styles.itemIcon}
-                iconName={`${item.Status === "Completed" ? "Completed" : null}`}
-              />
-
-            </span>
-
-            <DefaultButton
-              className={styles.removeBtn}
-              text="Remove"
-              onClick={e => { removeTodoItem(item) }}
-              iconProps={{ iconName: "Delete" }}
-            />
-          </span>
-        </li>
-      </ul>
-    </div >
-  );
 };
 
 
@@ -123,9 +77,61 @@ const ItemList = function (props: IItemListProps): React.ReactElement<IItemListP
       console.log(error.message)
     }
   }
+
   useEffect(() => {
     _getListData();
   }, [])
+
+
+  const _onRenderListItem = (
+    item: ISPListItem,
+    index: number
+  ): JSX.Element => {
+
+    const removeTodoItem = async function (item: ISPListItem): Promise<void> {
+      console.log(item)
+      const retVal = confirm("Task will be deleted. Do you want to continue?");
+      if (retVal === true) {
+        const sp = getSP()
+        const list = await sp.web.lists.getByTitle(ToDoListName).select('Title', 'Status');
+        await list.items.getById(parseInt(item.Id)).delete()
+        _getListData()
+      }
+    }
+
+    return (
+      <div key={index} data-is-focusable={true}>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>
+            <span>{item.Title}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+              <span
+                className={`${styles.itemStatus} ${_itemStatus(
+                  item.Status
+                )}`}
+              >
+                {item.Status}
+                <Icon
+                  className={styles.itemIcon}
+                  iconName={`${item.Status === "Completed" ? "Completed" : null}`}
+                />
+
+              </span>
+
+              <DefaultButton
+                className={styles.removeBtn}
+                text="Remove"
+                onClick={e => { removeTodoItem(item) }}
+                iconProps={{ iconName: "Delete" }}
+              />
+            </span>
+          </li>
+        </ul>
+      </div >
+    );
+  };
+
+
 
   const statusOptions: IDropdownOption[] = [
     { key: 'Pending', text: 'Pending' },
@@ -154,7 +160,9 @@ const ItemList = function (props: IItemListProps): React.ReactElement<IItemListP
           </Stack>
         </form>
       </section>
-      <List items={items} onRenderCell={_onRenderListItem} />
+      <TodoContext.Provider value={{ fetchData: _getListData }}>
+        <List items={items} onRenderCell={_onRenderListItem} />
+      </TodoContext.Provider>
     </>
   );
 }

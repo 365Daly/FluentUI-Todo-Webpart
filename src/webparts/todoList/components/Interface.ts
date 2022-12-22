@@ -15,3 +15,7 @@ export interface ITodoFormValues {
   title: string;
   status: string;
 }
+
+export interface ITodoContext {
+  fetchData: () => void;
+}
