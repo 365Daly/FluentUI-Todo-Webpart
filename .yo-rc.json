@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "14.20.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.4.1"
+    },
+    "version": "1.16.0",
+    "libraryName": "todoList-webpart",
+    "libraryId": "8b774cfc-9dba-4431-8d54-cc2302df9d67",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "todoList-webpart",
+    "solutionShortDescription": "todoList-webpart description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "todoList-webpart-client-side-solution",
+    "id": "8b774cfc-9dba-4431-8d54-cc2302df9d67",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.16.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "todo list"
+      },
+      "longDescription": {
+        "default": "todo list"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "todoList-webpart Feature",
+        "description": "The feature that activates elements of the todoList-webpart solution.",
+        "id": "fb4d01e3-ec05-40ac-baba-cc253e331e78",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/todoList-webpart.sppkg"
+  }
+}

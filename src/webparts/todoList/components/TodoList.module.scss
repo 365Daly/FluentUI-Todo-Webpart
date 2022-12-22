@@ -1,0 +1,109 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.headline{
+  text-align: center;
+}
+
+.todoList {
+  overflow: hidden;
+  padding: 1em;
+  color: "[theme:bodyText, default: #323130]";
+  color: var(--bodyText);
+  &.teams {
+    font-family: $ms-font-family-fallbacks;
+  }
+}
+
+.todoList {
+  overflow: hidden;
+  padding: 1em;
+  color: "[theme:bodyText, default: #323130]";
+  color: var(--bodyText);
+  &.teams {
+    font-family: $ms-font-family-fallbacks;
+  }
+}
+
+
+.links {
+  a {
+    text-decoration: none;
+    color: "[theme:link, default:#03787c]";
+    color: var(
+      --link
+    ); // note: CSS Custom Properties support is limited to modern browsers only
+
+    &:hover {
+      text-decoration: underline;
+      color: "[theme:linkHovered, default: #014446]";
+      color: var(
+        --linkHovered
+      ); // note: CSS Custom Properties support is limited to modern browsers only
+    }
+  }
+}
+
+.list {
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  line-height: 50px;
+  list-style-type: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.listItem {
+  color: #333333;
+  vertical-align: center;
+  box-sizing: border-box;
+  box-shadow: none;
+  *zoom: 1;
+  padding: 9px 28px 3px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemStatus {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.itemPending {
+  background-color: rgb(159, 159, 8);
+  color: white;
+}
+
+.itemCompleted {
+  background-color: rgb(40, 150, 40);
+  color: white;
+}
+
+.itemActive {
+  background-color: rgba(40, 40, 212, 0.84);
+  color: white;
+}
+
+.itemOverdue {
+  background-color: rgba(200, 74, 36, 0.84);
+  color: white;
+}
+
+.itemIcon {
+  margin-left: 4px;
+}
+
+.removeBtn {
+  margin-left: 8px;
+  padding: 2px;
+  background-image: linear-gradient(45deg, yellow,green);
+  box-shadow: (22 22 22 / 90%) 0 0 10px inset;
+  border-width: 0px;
+}
