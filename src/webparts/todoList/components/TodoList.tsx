@@ -140,20 +140,19 @@ const ItemList = function (props: IItemListProps): React.ReactElement<IItemListP
 
             < TextField label="Title"
               onChange={(e, value) => { e.stopPropagation(); handleInputChange('title', value) }}
-              errorMessage={errors.title}
+              errorMessage={errors && errors.title}
             />
 
             <Dropdown label="Status" options={statusOptions} styles={{
               dropdown: { width: 300 }
             }}
-              errorMessage={errors.status}
-              onChange={(e, option) => { e.stopPropagation(); handleInputChange('status', option.key.toString()) }}
+              errorMessage={errors && errors.status}
+              onChange={(e, option) => { console.log(option); handleInputChange('status', option.key.toString()) }}
             />
 
             <PrimaryButton type="submit">Create</PrimaryButton>
           </Stack>
         </form>
-        <label >{errors.title}</label>
       </section>
       <List items={items} onRenderCell={_onRenderListItem} />
     </>
